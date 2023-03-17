@@ -1,8 +1,6 @@
 package com.ahmfarisi.aplikasiagenda;
 
-import android.animation.LayoutTransition;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> {
@@ -28,8 +25,8 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
     @NonNull
     @Override
     public VHAgenda onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View varVIew = LayoutInflater.from(ctx).inflate(R.layout.list_item_agenda, parent, false) ;
-        return new VHAgenda(varVIew);
+        View varView = LayoutInflater.from(ctx).inflate(R.layout.list_item_agenda, parent, false);
+        return new VHAgenda(varView);
     }
 
     @Override
@@ -44,7 +41,7 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
         return arrKegiatan.size();
     }
 
-    public class VHAgenda extends RecyclerView.ViewHolder{
+    public class VHAgenda extends RecyclerView.ViewHolder {
         TextView tvTanggal, tvJam, tvKegiatan;
 
         public VHAgenda(@NonNull View itemView) {
@@ -52,7 +49,6 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
             tvTanggal = itemView.findViewById(R.id.tv_tanggal);
             tvJam = itemView.findViewById(R.id.tv_jam);
             tvKegiatan = itemView.findViewById(R.id.tv_kegiatan);
-
         }
     }
 

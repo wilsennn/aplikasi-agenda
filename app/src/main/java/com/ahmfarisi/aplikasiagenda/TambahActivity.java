@@ -31,24 +31,27 @@ public class TambahActivity extends AppCompatActivity {
                 jam = etJam.getText().toString();
                 kegiatan = etKegiatan.getText().toString();
 
-                if (tanggal.trim().equals("")) {
+                if(tanggal.trim().equals("")){
                     etTanggal.setError("Tanggal Harus Diisi");
-                } else if (jam.trim().equals("")) {
-                    etJam.setError("jam Harus Diisi");
-                } else if (kegiatan.trim().equals("")) {
-                    etKegiatan.setError("kegiatan harus diisi");
-                } else {
+                }
+                else if(jam.trim().equals("")){
+                    etJam.setError("Jam Harus Diisi");
+                }
+                else if(kegiatan.trim().equals("")){
+                    etKegiatan.setError("Kegiatan Harus Diisi");
+                }
+                else{
                     MyDatabaseHelper myDB = new MyDatabaseHelper(TambahActivity.this);
                     long eks = myDB.tambahAgenda(tanggal, jam, kegiatan);
-                    if (eks == -1) {
+                    if(eks == -1){
                         Toast.makeText(TambahActivity.this, "Tambah Data Gagal!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(TambahActivity.this, "Tambah Data Sukses", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(TambahActivity.this, "Tambah Data Sukses!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
             }
         });
-
     }
 }
