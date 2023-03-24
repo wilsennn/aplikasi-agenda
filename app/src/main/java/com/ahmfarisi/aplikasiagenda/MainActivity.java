@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvAgenda;
     private MyDatabaseHelper myDB;
     private AdapterAgenda adAgenda;
-    private ArrayList<String> arrTanggal, arrJam, arrKegiatan;
+    private ArrayList<String> arrId, arrTanggal, arrJam, arrKegiatan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         myDB = new MyDatabaseHelper(MainActivity.this);
+        arrId = new ArrayList<>();
         arrTanggal = new ArrayList<>();
         arrJam = new ArrayList<>();
         arrKegiatan = new ArrayList<>();
@@ -48,17 +49,19 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Tidak Ada Data", Toast.LENGTH_SHORT).show();
         }
         else{
+            arrId.clear();
             arrTanggal.clear();
             arrJam.clear();
             arrKegiatan.clear();
 
             while (varCursor.moveToNext()){
+                arrId.add(varCursor.getString(0));
                 arrTanggal.add(varCursor.getString(1));
                 arrJam.add(varCursor.getString(2));
                 arrKegiatan.add(varCursor.getString(3));
             }
 
-            adAgenda = new AdapterAgenda(MainActivity.this, arrTanggal, arrJam, arrKegiatan);
+            adAgenda = new AdapterAgenda(MainActivity.this, arrId, arrTanggal, arrJam, arrKegiatan);
             rvAgenda.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             rvAgenda.setAdapter(adAgenda);
         }

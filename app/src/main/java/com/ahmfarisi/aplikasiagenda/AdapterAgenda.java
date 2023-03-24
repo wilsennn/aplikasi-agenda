@@ -13,10 +13,11 @@ import java.util.ArrayList;
 
 public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> {
     private Context ctx;
-    private ArrayList arrTanggal, arrJam, arrKegiatan;
+    private ArrayList arrId, arrTanggal, arrJam, arrKegiatan;
 
-    public AdapterAgenda(Context ctx, ArrayList arrTanggal, ArrayList arrJam, ArrayList arrKegiatan) {
+    public AdapterAgenda(Context ctx,ArrayList arrId, ArrayList arrTanggal, ArrayList arrJam, ArrayList arrKegiatan) {
         this.ctx = ctx;
+        this.arrId = arrId;
         this.arrTanggal = arrTanggal;
         this.arrJam = arrJam;
         this.arrKegiatan = arrKegiatan;
@@ -31,6 +32,7 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
 
     @Override
     public void onBindViewHolder(@NonNull VHAgenda holder, int position) {
+        holder.tvId.setText(arrId.get(position).toString());
         holder.tvTanggal.setText(arrTanggal.get(position).toString());
         holder.tvJam.setText(arrJam.get(position).toString());
         holder.tvKegiatan.setText(arrKegiatan.get(position).toString());
@@ -42,10 +44,11 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
     }
 
     public class VHAgenda extends RecyclerView.ViewHolder {
-        TextView tvTanggal, tvJam, tvKegiatan;
+        TextView tvId,tvTanggal, tvJam, tvKegiatan;
 
         public VHAgenda(@NonNull View itemView) {
             super(itemView);
+            tvId = itemView.findViewById(R.id.tv_id);
             tvTanggal = itemView.findViewById(R.id.tv_tanggal);
             tvJam = itemView.findViewById(R.id.tv_jam);
             tvKegiatan = itemView.findViewById(R.id.tv_kegiatan);
