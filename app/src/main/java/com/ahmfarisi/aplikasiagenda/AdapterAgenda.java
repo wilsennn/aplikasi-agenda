@@ -3,6 +3,7 @@ package com.ahmfarisi.aplikasiagenda;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
     private Context ctx;
     private ArrayList arrId, arrTanggal, arrJam, arrKegiatan;
 
-    public AdapterAgenda(Context ctx,ArrayList arrId, ArrayList arrTanggal, ArrayList arrJam, ArrayList arrKegiatan) {
+    public AdapterAgenda(Context ctx, ArrayList arrId, ArrayList arrTanggal, ArrayList arrJam, ArrayList arrKegiatan) {
         this.ctx = ctx;
         this.arrId = arrId;
         this.arrTanggal = arrTanggal;
@@ -47,7 +48,7 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
     }
 
     public class VHAgenda extends RecyclerView.ViewHolder {
-        TextView tvId,tvTanggal, tvJam, tvKegiatan;
+        TextView tvId, tvTanggal, tvJam, tvKegiatan;
 
         public VHAgenda(@NonNull View itemView) {
             super(itemView);
@@ -60,8 +61,8 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog.Builder pesan = new AlertDialog.Builder(ctx);
-                    pesan.setTitle("Perhatian ");
-                    pesan.setMessage("anda memilih agenda degngan ID "+ tvId.getText().toString()+ "perintah apa yang anda inginkan?");
+                    pesan.setTitle("Perhatian");
+                    pesan.setMessage("Anda memilih Agenda dengan ID " + tvId.getText().toString() + ". Perintah apa yang Anda inginkan?");
                     pesan.setCancelable(true);
 
                     pesan.setNegativeButton("Hapus", new DialogInterface.OnClickListener() {
@@ -70,10 +71,9 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
                             MyDatabaseHelper myDB = new MyDatabaseHelper(ctx);
                             long eks = myDB.hapusAgenda(tvId.getText().toString());
                             if(eks == -1){
-                                Toast.makeText(ctx, "Gagal Menghapus Data", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
+                                Toast.makeText(ctx, "Gagal Menghapus Data!", Toast.LENGTH_SHORT).show();
                             }
-                            else {
+                            else{
                                 Toast.makeText(ctx, "Sukses Menghapus Data!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                                 ((MainActivity) ctx).onResume();
@@ -84,15 +84,28 @@ public class AdapterAgenda extends RecyclerView.Adapter<AdapterAgenda.VHAgenda> 
                     pesan.setPositiveButton("Ubah", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            String varId, varTanggal, varJam, varKegiatan;
+
+                            varId = tvId.getText().toString();
+                            varTanggal = tvTanggal.getText().toString();
+                            varJam = tvJam.getText().toString();
+                            varKegiatan = tvKegiatan.getText().toString();
+
+                            Intent kirim = new Intent(ctx, UbahActivity.class);
+                            kirim.putExtra("xId", varId);
+                            kirim.putExtra("xTanggal", varTanggal);
+                            kirim.putExtra("xJam", varJam);
+                            kirim.putExtra("xKegiatan", varKegiatan);
+                            ctx.startActivity(kirim);
 
                         }
                     });
 
                     pesan.show();
                     return false;
-
                 }
             });
+
         }
     }
 
